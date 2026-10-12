@@ -1,3 +1,6 @@
+const MIN_BENEFIT = 0;
+const MAX_BENEFIT = 50;
+
 export class Drug {
   constructor(name, expiresIn, benefit) {
     this.name = name;
@@ -5,49 +8,34 @@ export class Drug {
     this.benefit = benefit;
   }
   updateStandardDrug() {
-    let degradation;
-    if (this.expiresIn <= 0) {
-      degradation = 2;
-    } else {
-      degradation = 1;
-    }
-    this.benefit = Math.max(0, this.benefit - degradation);
-    this.expiresIn = this.expiresIn -1;
+    const degradation = this.expiresIn <= 0 ? 2 : 1;
+    this.benefit = Math.max(MIN_BENEFIT, this.benefit - degradation);
+    this.expiresIn -= 1;
   }
   updateHerbalTea() {
-    let increase;
-    if (this.expiresIn <= 0) {
-      increase = 2;
-    } else {
-      increase = 1;
-    }
-    this.benefit = Math.min(50, this.benefit + increase);
-    this.expiresIn = this.expiresIn -1;
+    const increase = this.expiresIn <= 0 ? 2 : 1;
+    this.benefit = Math.min(MAX_BENEFIT, this.benefit + increase);
+    this.expiresIn -= 1;
   }
   updateFervex() {
     if (this.expiresIn <= 0) {
       this.benefit = 0;
     } else if (this.expiresIn <= 5) {
-      this.benefit = Math.min(50, this.benefit + 3);
+      this.benefit = Math.min(MAX_BENEFIT, this.benefit + 3);
     } else if (this.expiresIn <= 10) {
-      this.benefit = Math.min(50, this.benefit + 2);
+      this.benefit = Math.min(MAX_BENEFIT, this.benefit + 2);
     } else {
-      this.benefit = Math.min(50, this.benefit + 1);
+      this.benefit = Math.min(MAX_BENEFIT, this.benefit + 1);
     }
-    this.expiresIn = this.expiresIn -1;
+    this.expiresIn -= 1;
   }
   updateMagicPill() {
     // Nothing to do
   }
   updateDafalgan() {
-    let degradation;
-    if (this.expiresIn <= 0) {
-      degradation = 4;
-    } else {
-      degradation = 2;
-    }
-    this.benefit = Math.max(0, this.benefit - degradation);
-    this.expiresIn = this.expiresIn -1;
+    const degradation = this.expiresIn <= 0 ? 4 : 2;
+    this.benefit = Math.max(MIN_BENEFIT, this.benefit - degradation);
+    this.expiresIn -= 1;
   }
 }
 
@@ -56,14 +44,14 @@ export class Pharmacy {
     this.drugs = drugs;
   }
   updateBenefitValue() {
-    for (var i = 0; i < this.drugs.length; i++) {
-      if (this.drugs[i].name == "Dafalgan") {
+    for (let i = 0; i < this.drugs.length; i++) {
+      if (this.drugs[i].name === "Dafalgan") {
         this.drugs[i].updateDafalgan();
-      } else if (this.drugs[i].name == "Magic Pill") {
+      } else if (this.drugs[i].name === "Magic Pill") {
         this.drugs[i].updateMagicPill();
-      } else if (this.drugs[i].name == "Herbal Tea") {
+      } else if (this.drugs[i].name === "Herbal Tea") {
         this.drugs[i].updateHerbalTea();
-      } else if (this.drugs[i].name == "Fervex") {
+      } else if (this.drugs[i].name === "Fervex") {
         this.drugs[i].updateFervex();
       } else {
         this.drugs[i].updateStandardDrug();
