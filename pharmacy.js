@@ -4,6 +4,16 @@ export class Drug {
     this.expiresIn = expiresIn;
     this.benefit = benefit;
   }
+  updateDafalgan() {
+    let degradation;
+    if (this.expiresIn <= 0) {
+      degradation = 4;
+    } else {
+      degradation = 2;
+    }
+    this.benefit = Math.max(0, this.benefit - degradation);
+    this.expiresIn = this.expiresIn -1;
+  }
 }
 
 export class Pharmacy {
@@ -12,6 +22,10 @@ export class Pharmacy {
   }
   updateBenefitValue() {
     for (var i = 0; i < this.drugs.length; i++) {
+      if (this.drugs[i].name == "Dafalgan") {
+        this.drugs[i].updateDafalgan();
+        continue;
+      }
       if (
         this.drugs[i].name != "Herbal Tea" &&
         this.drugs[i].name != "Fervex"

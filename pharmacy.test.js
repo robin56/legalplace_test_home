@@ -79,3 +79,19 @@ describe("Magic Pill negative expiresIn", () => {
     );
   });
 });
+
+describe("Dafalgan positive expiresIn", () => {
+  it("should decrease the benefit by 2 and the expiresIn by 1", () => {
+    expect(new Pharmacy([new Drug("Dafalgan", 2, 10)]).updateBenefitValue()).toEqual(
+      [new Drug("Dafalgan", 1, 8)],
+    );
+  });
+});
+
+describe("Dafalgan negative expiresIn", () => {
+  it("should decrease the benefit by 4 and the expiresIn by 1", () => {
+    expect(new Pharmacy([new Drug("Dafalgan", -2, 10)]).updateBenefitValue()).toEqual(
+      [new Drug("Dafalgan", -3, 6)],
+    );
+  });
+});
