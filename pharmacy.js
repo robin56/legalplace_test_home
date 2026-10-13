@@ -19,7 +19,7 @@ export class Drug {
   }
   updateFervex() {
     if (this.expiresIn <= 0) {
-      this.benefit = 0;
+      this.benefit = MIN_BENEFIT;
     } else if (this.expiresIn <= 5) {
       this.benefit = Math.min(MAX_BENEFIT, this.benefit + 3);
     } else if (this.expiresIn <= 10) {
